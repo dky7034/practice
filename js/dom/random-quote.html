@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- tailwindcss CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- axios CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <div class="flex flex-col items-center mt-10">
+      <button
+        class="bg-blue-500 text-white px-4 py-2 rounded-md"
+        id="get-quote"
+      >
+        랜덤 인용문 요청하기
+      </button>
+      <ul id="quotes" class="list-disc list-inside">
+        <li class="text-lg mt-2">예시 인용문</li>
+      </ul>
+    </div>
+    <script>
+      const getQuoteButton = document.querySelector("#get-quote");
+      const quotesUl = document.querySelector("#quotes");
+
+      // 더미 데이터 요청 기본 URL
+      const BASE_URL = "https://dummyjson.com/quotes";
+
+      // TODO: 랜덤 인용문 요청하고 응답 데이터 화면에 출력하기
+      // 아래 요구사항을 만족하는 getQuoteButton 의 클릭(click) 이벤트 핸들러 함수를 완성한다
+      // 1. 버튼을 클릭할 때 마다 랜덤 인용문 데이터 API 요청
+      // 2. li 요소 생성하고 변수에 할당
+      // 3. li 요소에 클래스(class) "text-lg mt-2" 설정
+      // 4. 응답 데이터의 인용문구(quote)를 li 요소의 텍스트(textContent)로 설정
+      // 5. 완성한 li 요소를 quotesUl(ul 요소)에 추가
+
+      getQuoteButton.addEventListener("click", () => {
+        // 아래 코드 작성
+        // 버튼을 클릭할 때 마다 랜덤 인용문 데이터 API 요청
+        // 랜덤 인용문 axios 요청
+        async function getARandomQuote() {
+          const { data } = await axios.get(`${BASE_URL}/random`);
+          // 데이터에서 인용 문장만 추출
+          const quote = data["quote"]; // 함수 내의 quote는 await로 풀어주었기 때문에 실제 응답 객체이지만,
+          console.log(quote);
+          return quote; // 외부 호출로 반환되는 값은 Promse<String> 임을 주의해야 함!
+        }
+        // 따라서 외부 호출로 값을 처리하기 위해서는 .then()을 사용해 실제 값을 꺼내야 함!
+        // 랜덤 인용문 axios 요청 (함수 호출)
+        getARandomQuote().then((quote) => {
+          // li 요소 생성하고 변수에 할당
+          const newLi = document.createElement("li");
+          // li 요소에 클래스(class) "text-lg mt-2" 설정
+          newLi.className = "text-lg mt-2";
+          // 응답 데이터의 인용문구(quote)를 li 요소의 텍스트(textContent)로 설정
+          newLi.textContent = quote;
+          // 완성한 li 요소를 quotesUl(ul 요소)에 추가
+          const quotesUl = document.querySelector("#quotes");
+          quotesUl.append(newLi);
+        });
+      });
+    </script>
+  </body>
+</html>
