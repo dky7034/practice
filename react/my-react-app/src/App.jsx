@@ -1,10 +1,10 @@
 import "./App.css";
-import Carts from "./components/Carts/Carts";
+import Form from "./components/Signup/Form";
 
 function App() {
   return (
     <>
-      <Carts />
+      <Form></Form>
     </>
   );
 }
