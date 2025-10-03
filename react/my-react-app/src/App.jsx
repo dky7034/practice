@@ -1,12 +1,10 @@
-import "./App.css";
-import ProductContainer from "./components/ProductSort/ProductContainer";
+import React from "react";
+import ProductContainer from "./components/Pr3/Props1/ProductContainer";
 
-function App() {
+export default function App() {
   return (
-    <>
+    <div>
       <ProductContainer></ProductContainer>
-    </>
+    </div>
   );
 }
-
-export default App;
